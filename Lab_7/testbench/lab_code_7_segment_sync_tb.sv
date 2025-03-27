@@ -30,14 +30,15 @@ module multi_seven_seg_display_tb;
         write = 0;
         sel = 0;
         num = 0;
+        $urandom($time);
 
-        #20000000 rst = 0; // Release reset after 20ms
+        #10000000 rst = 0; // Release reset after 20ms
 
         // Loop over all sel inputs
         for (int i = 0; i < 8; i++) begin
             sel = i[2:0]; // Set sel to current index
-            rand_num[i] = $urandom_range(0, 7); // Generate a random 4-bit value
-            $display("sel = %b, num = %b", sel, rand_num[i]);
+            rand_num[i] = $urandom_range(0, 15); 
+            $display("sel = %b, num = %h", sel, rand_num[i]);
             num = rand_num[i]; // Set num to random value
             write = 1;
             repeat (2) #1250000;  // Wait for one clock cycle
